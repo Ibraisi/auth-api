@@ -1,0 +1,51 @@
+<div class="container col s8">
+  <div class="row">
+    <h5>Register</h5>
+  </div>
+  {{>messages}}
+  <form class="col s14" action="/api/v1/users/register" method="post">
+    <div class="row">
+      <div class="input-field hoverable col s6">
+        <i class="material-icons prefix">contacts</i>
+        <input name="firstName" type="text" class="validate" />
+        <label for="firstName">First Name</label>
+      </div>
+      <div class="input-field hoverable col s6">
+        <i class="material-icons prefix">contacts</i>
+        <input name="lastName" type="text" class="validate" />
+        <label for="lastName">Last Name</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field hoverable col s6">
+        <i class="material-icons prefix">account_circle</i>
+        <input name="userName" type="text" class="validate" />
+        <label for="userName">Username</label>
+      </div>
+      <div class="input-field hoverable col s6">
+        <i class="material-icons prefix">email</i>
+        <input name="emailId" type="email" class="validate" />
+        <label for="emailId">Email</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field hoverable col s6">
+        <i class="material-icons prefix">vpn_key</i>
+        <input name="password" type="password" class="validate" />
+        <label for="password">Password</label>
+      </div>
+      <div class="input-field hoverable col s6">
+        <i class="material-icons prefix">replay</i>
+        <input name="password2" type="password" class="validate" />
+        <label for="password2">Retype Password</label>
+      </div>
+    </div>
+    <div class="input-field">
+      <button type="submit" class="btn deep-purple">Join the team</button>
+
+    </div>
+    <a href="/api/v1/users/login">I have an account</a>
+
+  </form>
+
+</div>
