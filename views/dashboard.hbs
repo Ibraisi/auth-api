@@ -1,1 +1,11 @@
-<p>dash</p>
+<p>
+      {{#if errors}}
+  {{#each msgs}}
+    <div class="card-panel red lighten-2"> {{msg}}</div>
+  {{/each}}
+      {{/if}}
+</p>
+
+<form action="/api/v1/users/me/" method="POST" id="form1">
+      <button type="submit" class="btn deep-purple">DELETE MY ACCOUNT</button>
+</form>

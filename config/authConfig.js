@@ -39,12 +39,12 @@ passport.use(
   )
 );
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser( (user, done)=> {
   console.log(" serl started");
   done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser( (id, done)=> {
   User.findOne({
     _id: id,
   })

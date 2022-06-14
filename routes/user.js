@@ -3,6 +3,9 @@ const router = express.Router();
 const PageUsers = require("../model/pageUsers");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
+const isAuth = require("../config/auth");
+const pageUsers = require("../model/pageUsers");
+
 
 //login page
 router.get("/login", (req, res) => {
@@ -109,4 +112,34 @@ router.get("/logout", (req, res, next) => {
     res.redirect("/api/v1/");
   });
 });
+
+
+router.post('/me', isAuth,  (req, res,next) => {
+  try {
+    const  userId  = req.user._id;
+    console.log(userId)
+    const user =  pageUsers.findById({ _id: userId });
+    console.log(user)
+    if(user){
+      req.logout(function (err) {
+        if (err) {
+          return next(err);
+        }
+        pageUsers.deleteOne({ _id: userId }, (err)=> {
+          if (err) {
+                 console.log(err)
+          }
+          else {
+            console.log("user removed")
+            res.redirect("/api/v1/")
+          }
+      });
+      });
+    }
+  } catch (err) {
+    console.log(err)
+    res.redirect("/api/v1/dashboard")
+  }
+});     
+
 module.exports = router;

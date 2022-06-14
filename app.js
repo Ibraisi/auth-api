@@ -11,7 +11,7 @@ const passport = require("passport");
 //config session and flash
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.Sec_ID,
     resave: true,
     saveUninitialized: true,
   })
