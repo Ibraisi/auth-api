@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const PageUsers = require("../model/pageUsers");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const isAuth = require("../config/auth");
@@ -59,14 +58,14 @@ router.post("/register", (req, res) => {
     res.render("register", { errors });
     // all good -> creating user if email not already existed
   } else {
-    PageUsers.findOne({ emailId: emailId }, (err, user) => {
+    pageUsers.findOne({ emailId: emailId }, (err, user) => {
       if (user) {
         errors.push({
           msg: "Email areadly exist!",
         });
         res.render("register", { errors });
       } else {
-        const newUser = new PageUsers({
+        const newUser = new pageUsers({ 
           firstName,
           lastName,
           userName,
@@ -123,6 +122,7 @@ router.post('/me', isAuth,  (req, res,next) => {
     if(user){
       req.logout(function (err) {
         if (err) {
+          res.redirect("/api/v1/dashboard")
           return next(err);
         }
         pageUsers.deleteOne({ _id: userId }, (err)=> {
@@ -131,7 +131,7 @@ router.post('/me', isAuth,  (req, res,next) => {
           }
           else {
             console.log("user removed")
-            res.redirect("/api/v1/")
+            res.redirect("/api/v1/login")
           }
       });
       });
@@ -140,6 +140,41 @@ router.post('/me', isAuth,  (req, res,next) => {
     console.log(err)
     res.redirect("/api/v1/dashboard")
   }
-});     
+}); 
+
+router.post("/find", isAuth, (req,res)=>{
+  let msgList =[]
+  let users = []
+  const email = req.body.emailId
+  pageUsers.findOne({emailId: email},(err, myUser)=> {
+    if (err){
+      console.log(err.message);
+      msgList.push({
+        msg:"there was a error"
+      })
+      res.render("dashboard",{msgList})
+    }  // That's very very weird,that's work but RARELY that's doesn't work
+    if(myUser){
+      console.log(myUser)
+      console.log("user found")
+      msgList.push({
+        msg:"user was found"
+      })
+      users.push({
+        user:myUser.firstName
+      })
+      users.push({
+        user:myUser.lastName
+      })
+      res.render("dashboard",{msgList,users})
+    }
+    else{
+      console.log("user was not found")
+      msgList.push({
+        msg:"user not found"
+      })
+      res.render("dashboard",{msgList})
+    }
+})})
 
 module.exports = router;

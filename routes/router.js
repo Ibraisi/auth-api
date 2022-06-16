@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const isAuth = require("../config/auth");
+const pageUsers = require("../model/pageUsers");
+
 //dashboard
 router.get("/dashboard", isAuth, (req, res) => {
-  res.render("dashboard");
+  console.log(pageUsers)
+    res.render('dashboard', { userList : pageUsers });
 });
 
 //home page

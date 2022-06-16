@@ -1,11 +1,16 @@
 <p>
-      {{#if errors}}
-  {{#each msgs}}
-    <div class="card-panel red lighten-2"> {{msg}}</div>
-  {{/each}}
-      {{/if}}
-</p>
 
+</p>
+  {{>messages}}
 <form action="/api/v1/users/me/" method="POST" id="form1">
-      <button type="submit" class="btn deep-purple">DELETE MY ACCOUNT</button>
+  <button type="submit" class="btn deep-purple">DELETE MY ACCOUNT</button>
+</form>
+
+<form action="/api/v1/users/find" method="POST" id="form2">
+  <div class="input-field hoverable col s6">
+    <i class="material-icons prefix">search</i>
+    <input name="emailId" type="email" class="validate" />
+    <label for="emailId"></label>
+  </div>
+    <button type="submit" class="btn deep-purple">Find user </button>
 </form>

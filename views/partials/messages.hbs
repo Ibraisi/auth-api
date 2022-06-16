@@ -11,3 +11,16 @@
 {{#if error}}
   <div class="card-panel red lighten-2"> {{error}}</div>
 {{/if}}
+
+{{#if msgList}}
+  {{#each msgList}}
+    <div class="card-panel red lighten-2"> {{msg}}</div>
+  {{/each}}
+{{/if}}
+
+{{#if users}}
+  {{#each users}}
+    <div class="card-panel red lighten-2"> {{user}}</div>
+  {{/each}}
+{{/if}}
+
